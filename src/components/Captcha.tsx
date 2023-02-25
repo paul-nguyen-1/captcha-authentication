@@ -14,7 +14,7 @@ const Captcha = () => {
       <div className="captchaImages">
         {captchaImages.map((image, index) => (
           <React.Fragment key={index}>
-            <div>
+            <div className='jimImages'>
               <img src={image} alt= {image} />
             </div>
           </React.Fragment>
