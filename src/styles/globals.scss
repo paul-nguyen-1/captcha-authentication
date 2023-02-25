@@ -105,3 +105,25 @@ a {
     color-scheme: dark;
   }
 }
+
+body {
+  padding: 30px;
+}
+
+.App{
+  width: 350px;
+  margin: 0 auto;
+}
+
+input, button{
+  padding: 5px;
+  margin: 10px 0;
+}
+
+input{
+  width: 100%;
+}
+
+button{
+  padding: 5px 30px;
+}
