@@ -31,7 +31,6 @@ const ironSessionHandler = withIronSessionApiRoute(
     }
     res.setHeader('Content-Type', 'image/webp');
     const imageBuffer = fs.readFileSync(session.captchaImages[index]);
-
     res.send(imageBuffer);
   },
   {
