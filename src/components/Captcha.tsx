@@ -5,7 +5,7 @@ const Captcha = () => {
   const captchaImages: string[] = new Array(9)
     .fill(null)
     .map((value, index : number) => {
-      return `/api/ImageAPI?index=${index}.webp`;
+      return `/api/ImageAPI?index=${index}`;
     });
 
   return (
