@@ -5,13 +5,26 @@
     height: 300px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
 
     div {
       border: 1px solid black;
     }
-    .jimImages{
+    .jimImages {
       height: 100px;
       width: 100%;
+    }
+    .selectedJimImages {
+      height: 100px;
+      width: 100%;
+      position: relative;
+    }
+    .selectedJimImages:after {
+      position: absolute;
+      content: "";
+      inset: 0;
+      background-color: rgba(100, 100, 255, 0.6);
     }
   }
 }

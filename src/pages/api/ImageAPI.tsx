@@ -7,7 +7,7 @@ interface MySession {
 }
 
 function newCaptchaImages() {
-  //Randomize images for it to either be Jim or another character
+  //Set up path for API to randomize images for it to either be Jim or another character
   const correctImage = 0.5;
   return (new Array(9))
     .fill(null)
@@ -21,7 +21,7 @@ function newCaptchaImages() {
 
 const ironSessionHandler = withIronSessionApiRoute(
   // Export cookies to keep same captcha after each reload
-  // Return images into captcha arr
+  // Return API images into captcha array
   async function imageHandler(req: NextApiRequest, res: NextApiResponse) {
     const index = parseInt(req.query.index as string);
     const session = req.session as MySession;
