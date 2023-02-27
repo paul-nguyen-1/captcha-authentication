@@ -8,11 +8,6 @@ export default function Home() {
   const handleMessage = (e: any) => {
     setMessage(e.target.value)
   }
-  //Make sure all char in message is being sent
-  useEffect(() => {
-    console.log(message)
-  }, [message])
-
   //Send message to API
   const sendMessage = () => {
     if (!message) {
@@ -20,9 +15,12 @@ export default function Home() {
       return;
     }
     //Fetch data from captcha to send to api
-    fetch('/api/send', {
+    fetch('/api/SendAPI', {
       method: 'POST',
-      body: JSON.stringify({ string: message, selectedIndexes: selectIndex })
+      body: JSON.stringify({ message: message, selectIndex: selectIndex }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(response => {
+
     })
   }
 

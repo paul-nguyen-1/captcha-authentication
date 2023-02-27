@@ -22,7 +22,7 @@ function newCaptchaImages() {
 const ironSessionHandler = withIronSessionApiRoute(
   // Export cookies to keep same captcha after each reload
   // Return API images into captcha array
-  async function imageHandler(req: NextApiRequest, res: NextApiResponse) {
+  async function handler(req: NextApiRequest, res: NextApiResponse) {
     const index = parseInt(req.query.index as string);
     const session = req.session as MySession;
     if (!session.captchaImages) {
@@ -39,5 +39,4 @@ const ironSessionHandler = withIronSessionApiRoute(
   }
 );
 
-export default ironSessionHandler
-
+export default ironSessionHandler;
