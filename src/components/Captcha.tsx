@@ -1,8 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const Captcha = () => {
+interface Props {
+  onChange: (indexes: number[]) => void;
+}
+
+const Captcha = ({ onChange }: Props) => {
   //Check or select index
   const [selectIndex, setSelectedIndex] = useState<number[]>([])
+
+  //Call onChange function with selectIndex array whenever it changes
+  useEffect(() => {
+    onChange(selectIndex)
+  }, [selectIndex])
+
   //Map out arr of images to store in grid
   const captchaImages: string[] = new Array(9)
     .fill(null)
@@ -39,4 +49,4 @@ const Captcha = () => {
   );
 }
 
-export default Captcha
+export default Captcha;
