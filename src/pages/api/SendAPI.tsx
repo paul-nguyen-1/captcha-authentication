@@ -8,7 +8,7 @@ interface MySession {
 const ironSessionHandler = withIronSessionApiRoute(
     //Setting up validation for jim images in captcha
     async function handler(req: NextApiRequest, res: NextApiResponse) {
-        const { message, selectIndex } = req.body;
+        const { selectIndex } = req.body;
         const session = req.session as MySession;
 
         //map through captcha images and filter out not jim images
@@ -18,25 +18,23 @@ const ironSessionHandler = withIronSessionApiRoute(
 
         //return jim and not jim images
         const captchaValidation: boolean = JSON.stringify(jimIndex?.sort()) === JSON.stringify(selectIndex?.sort())
-        const sent = captchaValidation
 
         //resetting captcha on each send request
         session.captchaImages = newCaptchaImages()
         await req.session.save()
 
-        console.log({ message })
-        console.log({ jimIndex })
-        console.log({ selectIndex })
-        console.log({ captchaValidation })
-        console.log({ sent })
-        console.log("response:", res.json);
+        // console.log({ message })
+        // console.log({ jimIndex })
+        // console.log({ selectIndex })
+        // console.log({ captchaValidation })
+        // console.log("response:", res.json);
 
         res.setHeader('Content-Type', 'application/json');
         res.json({
             body: {
                 jimIndex,
                 captchaValidation,
-                sent,
+                selectIndex,
             }
         });
     },

@@ -17,7 +17,8 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
   }
 
   //Send message to API
-  const sendMessage = () => {
+  const sendMessage = (e: any) => {
+    e.preventDefault()
     if (!message) {
       alert(`Send a message...unless you're a bot!`)
       return;
@@ -29,26 +30,30 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
       headers: { 'Content-Type': 'application/json' }
     }).then(response => {
       response.json().then(json => {
-        console.log('json:', json.body.captchaValidation);
+        // console.log('json:', json.body);
         if (json.body.captchaValidation) {
-          setCaptchaKey((new Date()).getTime().toString())
           alert(`Congratulations! You're not a bot.`)
-          setMessage('')
         }
-        if (!json.body.captchaValidation) {
-          setCaptchaKey((new Date()).getTime().toString())
-          alert(`Wrong captcha. Try again...`)
+        if (!json.body.captchaValidation && json.body.selectIndex.length > 0) {
+          alert(`Wrong captcha. Try again...bot!`)
+        }
+        if (json.body.selectIndex.length === 0) {
+          alert(`You need click and select a captcha image!`)
         }
       })
+      setMessage('')
+      setCaptchaKey((new Date()).getTime().toString())
     })
   }
 
   return (
     <div className="App">
       <div>
-        <input type="text" placeholder="Send a Message"
-          onChange={handleMessage}
-        ></input>
+        <form onSubmit={sendMessage}>
+          <input type="text" placeholder="Send a Message"
+            onChange={handleMessage} value={message}
+          ></input>
+        </form>
         <Captcha captchaKey={captchaKey} onChange={setSelectIndex} />
         <button onClick={sendMessage}>Send</button>
       </div>
