@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import Captcha from "@/components/Captcha";
 
 export default function Home() {
+  const [selectIndex, setSelectIndex] = useState<number[]>([])
   //Handle all messages within input
   const [message, setMessage] = useState<string>('')
-  const [selectIndex, setSelectIndex] = useState<number[]>([])
   const handleMessage = (e: any) => {
     setMessage(e.target.value)
   }
