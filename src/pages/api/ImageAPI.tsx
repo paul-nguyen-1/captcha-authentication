@@ -6,7 +6,7 @@ interface MySession {
   captchaImages?: string[];
 }
 
-function newCaptchaImages() {
+export function newCaptchaImages() {
   //Set up path for API to randomize images for it to either be Jim or another character
   const correctImage = 0.5;
   return (new Array(9))
