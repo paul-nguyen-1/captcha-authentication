@@ -1,6 +1,8 @@
 import fs from 'fs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withIronSessionApiRoute } from 'iron-session/next';
+import * as path from "path";
+
 
 interface MySession {
   captchaImages?: string[];
@@ -15,7 +17,8 @@ export function newCaptchaImages() {
       const jimCaptcha = Math.random() < correctImage;
       const imgIndex = Math.floor(Math.random() * (jimCaptcha ? 10 : 13) + 1);
       const character = (jimCaptcha ? 'jim' : 'notjim') + imgIndex + '.webp';
-      return `/${character}`;
+      const imageDirectory = path.join(process.cwd(), 'public/images');
+      return `${imageDirectory}/${character}`;
     });
 }
 
