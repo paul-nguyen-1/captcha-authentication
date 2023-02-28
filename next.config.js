@@ -1,11 +1,17 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  output: 'standalone',
-  webpackDevMiddleware: config => {
-    config.watchOptions = {
-      poll: 1000,
-      aggregateTimeout: 300,
-    }
-    return config
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    loader: "akamai",
+    path: "/",
+    unoptimized: true,
   },
-}
+};
+
+const withImages = require("next-images");
+module.exports = withImages({
+  webpack(config, options) {
+    return config;
+  },
+});
+module.exports = nextConfig;

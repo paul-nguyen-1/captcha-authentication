@@ -1,14 +1,13 @@
 import fs from 'fs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { withIronSessionApiRoute } from 'iron-session/next';
-import path from 'path';
 
 interface MySession {
   captchaImages?: string[];
 }
 
-//Set up path for API to randomize images for it to either be Jim or another character
 export function newCaptchaImages() {
+  //Set up path for API to randomize images for it to either be Jim or another character
   const correctImage = 0.5;
   return (new Array(9))
     .fill(null)
@@ -16,13 +15,13 @@ export function newCaptchaImages() {
       const jimCaptcha = Math.random() < correctImage;
       const imgIndex = Math.floor(Math.random() * (jimCaptcha ? 10 : 13) + 1);
       const character = (jimCaptcha ? 'jim' : 'notjim') + imgIndex + '.webp';
-      return path.join(process.cwd(), 'public', 'images', character);
+      return `./images/${character}`;
     });
 }
 
-// Export cookies to keep same captcha after each reload
-// Return API images into captcha array
 const ironSessionHandler = withIronSessionApiRoute(
+  // Export cookies to keep same captcha after each reload
+  // Return API images into captcha array
   async function handler(req: NextApiRequest, res: NextApiResponse) {
     const index = parseInt(req.query.index as string);
     const session = req.session as MySession;
