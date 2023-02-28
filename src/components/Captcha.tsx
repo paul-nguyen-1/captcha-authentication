@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 interface Props {
   onChange: (indexes: number[]) => void;
@@ -49,7 +50,7 @@ const Captcha = ({ onChange, captchaKey }: Props) => {
             <div
               onClick={() => handleSelectIndex(index)}
               className={selectIndex.includes(index) ? 'selectedJimImages' : 'jimImages'}>
-              <img src={image} alt={image} />
+              <Image src={image} alt={image} width="64" height="64"/>
             </div>
           </React.Fragment>
         ))}

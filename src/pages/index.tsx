@@ -32,7 +32,7 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
       response.json().then(json => {
         // console.log('json:', json.body);
         if (json.body.captchaValidation) {
-          alert(`Congratulations! You're not a bot.`)
+          alert(`Congratulations! You passed the test.`)
         }
         if (!json.body.captchaValidation && json.body.selectIndex.length > 0) {
           alert(`Wrong captcha. Try again...bot!`)
