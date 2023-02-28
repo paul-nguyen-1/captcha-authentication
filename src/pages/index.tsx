@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Captcha from "@/components/Captcha";
 import { withIronSessionSsr } from 'iron-session/next';
 import MySession, { newCaptchaImages } from './api/ImageAPI';
@@ -10,10 +10,21 @@ interface MySession {
 export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string }) {
   const [selectIndex, setSelectIndex] = useState<number[]>([])
   const [captchaKey, setCaptchaKey] = useState<string>(defaultCaptchaKey)
+  const [music, setMusic] = useState<boolean>(false)
   //Handle all messages within input
   const [message, setMessage] = useState<string>('')
   const handleMessage = (e: any) => {
     setMessage(e.target.value)
+  }
+
+
+  //Play the audio file when the music state is true
+  const queueMusic = () => {
+    setMusic(false)
+    const audio = new Audio('/theoffice.mp3');
+    if (music) {
+      audio.play();
+    }
   }
 
   //Send message to API
@@ -21,6 +32,7 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
     e.preventDefault()
     if (!message) {
       alert(`Send a message...unless you're a bot!`)
+      setMusic(false)
       return;
     }
     //Fetch data from captcha to send to api
@@ -33,12 +45,15 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
         // console.log('json:', json.body);
         if (json.body.captchaValidation) {
           alert(`Congratulations! You passed the test.`)
+          setMusic(true)
         }
         if (!json.body.captchaValidation && json.body.selectIndex.length > 0) {
           alert(`Wrong captcha. Try again...bot!`)
+          setMusic(false)
         }
         if (json.body.selectIndex.length === 0) {
           alert(`You need click and select a captcha image!`)
+          setMusic(false)
         }
       })
       setMessage('')
@@ -55,7 +70,8 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
           ></input>
         </form>
         <Captcha captchaKey={captchaKey} onChange={setSelectIndex} />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage} style={{ marginRight: '20px' }}>Send</button>
+        {music && <button onClick={queueMusic}>Queue the Music!</button>}
       </div>
     </div>
   )

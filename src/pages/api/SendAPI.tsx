@@ -13,7 +13,7 @@ const ironSessionHandler = withIronSessionApiRoute(
 
         //map through captcha images and filter out not jim images
         const jimIndex = session?.captchaImages?.map((path, index) => {
-            return path.includes('/static/jim') ? index : -1
+            return path.includes('/images/jim') ? index : -1
         }).filter(index => index !== -1)
 
         //return jim and not jim images
@@ -23,7 +23,6 @@ const ironSessionHandler = withIronSessionApiRoute(
         session.captchaImages = newCaptchaImages()
         await req.session.save()
 
-        // console.log({ message })
         // console.log({ jimIndex })
         // console.log({ selectIndex })
         // console.log({ captchaValidation })
