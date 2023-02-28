@@ -30,7 +30,7 @@ const ironSessionHandler = withIronSessionApiRoute(
       await req.session.save();
     }
     res.setHeader('Content-Type', 'image/webp');
-    const imageBuffer = fs.readFileSync(session.captchaImages[index]);
+    const imageBuffer = fs.readFileSync(`public${session.captchaImages[index]}`);
     res.send(imageBuffer);
   },
   {
