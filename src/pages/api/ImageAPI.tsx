@@ -15,7 +15,7 @@ export function newCaptchaImages() {
       const jimCaptcha = Math.random() < correctImage;
       const imgIndex = Math.floor(Math.random() * (jimCaptcha ? 10 : 13) + 1);
       const character = (jimCaptcha ? 'jim' : 'notjim') + imgIndex + '.webp';
-      return `/static/images/${character}`;
+      return `./public/static/images/${character}`;
     });
 }
 
