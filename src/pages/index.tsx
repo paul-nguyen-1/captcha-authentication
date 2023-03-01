@@ -33,7 +33,6 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
     if (!message) {
       alert(`Send a message...unless you're a bot!`)
       setMusic(false)
-      setCaptchaKey((new Date()).getTime().toString())
       return;
     }
     //Fetch data from captcha to send to api
