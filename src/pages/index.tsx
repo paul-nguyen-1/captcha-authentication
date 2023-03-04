@@ -2,15 +2,23 @@ import { useState, useEffect } from "react";
 import Captcha from "@/components/Captcha";
 import { withIronSessionSsr } from 'iron-session/next';
 import MySession, { newCaptchaImages } from './api/ImageAPI';
+import Navbar from "@/components/Navbar";
 
 interface MySession {
   captchaImages?: string[];
 }
 
+
 export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string }) {
   const [selectIndex, setSelectIndex] = useState<number[]>([])
   const [captchaKey, setCaptchaKey] = useState<string>(defaultCaptchaKey)
   const [music, setMusic] = useState<boolean>(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    // perform any additional logout logic here
+  };
   //Handle all messages within input
   const [message, setMessage] = useState<string>('')
   const handleMessage = (e: any) => {
@@ -63,6 +71,7 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
 
   return (
     <div className="App">
+      <Navbar isLoggedIn={isLoggedIn} handleLogin={handleLogin} />
       <div>
         <form onSubmit={sendMessage}>
           <input type="text" placeholder="Send a Message"
