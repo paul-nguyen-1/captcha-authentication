@@ -25,10 +25,8 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
 
   const handleLogin = () => {
     if (!isLoggedIn) {
-      // perform logout logic here
       setIsLoggedIn(false);
     } else {
-      // perform login logic here
       setIsLoggedIn(true);
     }
   };
