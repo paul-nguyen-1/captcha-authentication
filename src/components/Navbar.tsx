@@ -7,19 +7,16 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ isLoggedIn, handleLogin }) => {
     return (
-        <nav>
+        <nav style={{display: 'flex', alignItems:'center', justifyContent:"center"}}>
             <ul>
-                <li>
-                    <a href="/">Home</a>
-                </li>
-                <li>
+                <li style={{listStyle:"none", }}>
                     {isLoggedIn ? (
-                        <a href="/api/auth/logout" onClick={handleLogin} className="logButton">
-                            Logout
+                        <a href="/api/auth/logout"  className="logButton">
+                            <div onClick={handleLogin}>Logout</div>
                         </a>
                     ) : (
                         <a href="/api/auth/login" className="logButton">
-                            Login
+                            <div> Login</div>
                         </a>
                     )}
                 </li>

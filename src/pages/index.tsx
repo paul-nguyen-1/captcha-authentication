@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Captcha from "@/components/Captcha";
 import { withIronSessionSsr } from 'iron-session/next';
 import MySession, { newCaptchaImages } from './api/ImageAPI';
+import { useUser } from '@auth0/nextjs-auth0/client';
 import Navbar from "@/components/Navbar";
 
 interface MySession {
@@ -14,11 +15,24 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
   const [captchaKey, setCaptchaKey] = useState<string>(defaultCaptchaKey)
   const [music, setMusic] = useState<boolean>(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user, error, isLoading } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      setIsLoggedIn(true);
+    }
+  }, [user]);
 
   const handleLogin = () => {
-    setIsLoggedIn(true);
-    // perform any additional logout logic here
+    if (!isLoggedIn) {
+      // perform logout logic here
+      setIsLoggedIn(false);
+    } else {
+      // perform login logic here
+      setIsLoggedIn(true);
+    }
   };
+
   //Handle all messages within input
   const [message, setMessage] = useState<string>('')
   const handleMessage = (e: any) => {
@@ -72,7 +86,7 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
   return (
     <div className="App">
       <Navbar isLoggedIn={isLoggedIn} handleLogin={handleLogin} />
-      <div>
+      {isLoggedIn ? <div>
         <form onSubmit={sendMessage}>
           <input type="text" placeholder="Send a Message"
             onChange={handleMessage} value={message}
@@ -81,7 +95,16 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
         <Captcha captchaKey={captchaKey} onChange={setSelectIndex} />
         <button onClick={sendMessage} style={{ marginRight: '20px' }}>Send</button>
         {music && <button onClick={queueMusic}>Queue the Music!</button>}
-      </div>
+      </div> : <div className="noteCard">
+  <div className="cardHeader">
+    <h1>Login to use this Application!</h1>
+  </div>
+  <div className="cardBody">
+    <h2>Default Crediantials:</h2>
+    <h3>Username: example@example.com </h3>
+    <h3>Password: Password123! </h3>
+  </div>
+</div>}
     </div>
   )
 }
