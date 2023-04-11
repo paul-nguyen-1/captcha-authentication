@@ -43,14 +43,18 @@ const Captcha = ({ onChange, captchaKey }: Props) => {
 
   return (
     <div className="captchaContainer">
-      <h2>Select All The Jim&#39;s:</h2>
+      <div className="captchaHeader">
+        <p>Select all the</p>
+        <h2>Jim&#39;s</h2>
+        <p>Click verify once there are none left.</p>
+      </div>
       <div className="captchaImages">
         {captchaImages.map((image, index) => (
           <React.Fragment key={index}>
             <div
               onClick={() => handleSelectIndex(index)}
               className={selectIndex.includes(index) ? 'selectedJimImages' : 'jimImages'}>
-              <Image src={image} alt={image} width="64" height="64"/>
+              <Image src={image} alt={image} width="64" height="64" />
             </div>
           </React.Fragment>
         ))}

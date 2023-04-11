@@ -49,12 +49,12 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
 
   //Send message to API
   const sendMessage = (e: any) => {
-    e.preventDefault()
-    if (!message) {
-      alert(`Send a message...unless you're a bot!`)
-      setMusic(false)
-      return;
-    }
+    // e.preventDefault()
+    // if (!message) {
+    //   alert(`Send a message...unless you're a bot!`)
+    //   setMusic(false)
+    //   return;
+    // }
     //Fetch data from captcha to send to api
     fetch('/api/SendAPI', {
       method: 'POST',
@@ -64,7 +64,7 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
       response.json().then(json => {
         // console.log('json:', json.body);
         if (json.body.captchaValidation) {
-          alert(`Congratulations! You passed the test.`)
+          alert(`Welcome. Queue the music!`)
           setMusic(true)
         }
         if (!json.body.captchaValidation && json.body.selectIndex.length > 0) {
@@ -85,24 +85,24 @@ export default function Home({ defaultCaptchaKey }: { defaultCaptchaKey: string 
     <div className="App">
       <Navbar isLoggedIn={isLoggedIn} handleLogin={handleLogin} />
       {isLoggedIn ? <div>
-        <form onSubmit={sendMessage}>
+        {/* <form onSubmit={sendMessage}>
           <input type="text" placeholder="Send a Message"
             onChange={handleMessage} value={message}
           ></input>
-        </form>
+        </form> */}
         <Captcha captchaKey={captchaKey} onChange={setSelectIndex} />
-        <button onClick={sendMessage} style={{ marginRight: '20px' }}>Send</button>
-        {music && <button onClick={queueMusic}>Queue the Music!</button>}
+        <button onClick={sendMessage} style={{ marginRight: '20px' }}>Verify</button>
+        {music && <button onClick={queueMusic}>Click Me</button>}
       </div> : <div className="noteCard">
-  <div className="cardHeader">
-    <h1>Login to use this Application!</h1>
-  </div>
-  <div className="cardBody">
-    <h2>Default Crediantials:</h2>
-    <h3>Username: example@example.com </h3>
-    <h3>Password: Password123! </h3>
-  </div>
-</div>}
+        <div className="cardHeader">
+          <h1>Login to use this Application!</h1>
+        </div>
+        <div className="cardBody">
+          <h2>Default Crediantials:</h2>
+          <h3>Username: example@example.com </h3>
+          <h3>Password: Password123! </h3>
+        </div>
+      </div>}
     </div>
   )
 }

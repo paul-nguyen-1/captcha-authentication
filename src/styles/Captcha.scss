@@ -1,4 +1,10 @@
 .captchaContainer {
+  .captchaHeader{
+    background-color: rgba(249, 184, 63, 0.301);
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+
   .captchaImages {
     background: #fff;
     width: 350px;
